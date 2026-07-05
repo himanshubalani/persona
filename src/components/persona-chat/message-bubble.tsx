@@ -53,7 +53,7 @@ export function renderMarkdown(text: string, themeColor: string): React.ReactNod
         6: "text-sm font-medium mt-2 mb-1 text-slate-600",
       };
 
-      const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+      const Tag = `h${level}` as React.ElementType;
 
       elements.push(
         <Tag

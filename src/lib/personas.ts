@@ -31,7 +31,7 @@ export const PERSONAS: Record<PersonaId, Persona> = {
       "Vibe coders vs Gut feeling developers in AI",
       "How to get out of tutorial hell?",
     ],
-    systemPrompt: process.env.HITESH_SYSTEM_PROMPT 
+    systemPrompt: process.env.HITESH_SYSTEM_PROMPT ?? "",
   },
 
   piyush: {
@@ -49,7 +49,7 @@ export const PERSONAS: Record<PersonaId, Persona> = {
       "How did you build WisprType to process AI voice dictation locally?",
       "Draw me a diagram explaining how S3 actually works under the hood",
     ],
-    systemPrompt: process.env.PIYUSH_SYSTEM_PROMPT,
+    systemPrompt: process.env.PIYUSH_SYSTEM_PROMPT ?? "",
   },
 
   himanshu: {
@@ -67,6 +67,6 @@ export const PERSONAS: Record<PersonaId, Persona> = {
     "Turn this idea into an MVP",
     "How would you write a blog about this?",
   ],
-  systemPrompt: process.env.HIMANSHU_SYSTEM_PROMPT,
+  systemPrompt: process.env.HIMANSHU_SYSTEM_PROMPT ?? "",
 },
 };

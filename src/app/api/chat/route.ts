@@ -3,8 +3,6 @@ import { openai } from "@ai-sdk/openai";
 import { streamText, convertToModelMessages, type UIMessage } from "ai";
 import { PERSONAS, type PersonaId } from "@/lib/personas";
 
-export const runtime = "edge";
-
 export async function POST(req: Request) {
   try {
     const { messages, personaId } = await req.json() as { messages: UIMessage[]; personaId: PersonaId };
@@ -41,7 +39,7 @@ export async function POST(req: Request) {
     const result = await streamText({
       model: openai('gpt-5.4-nano'),
       system: selectedPersona.systemPrompt,
-      messages: convertToModelMessages(messages),
+      messages: await convertToModelMessages(messages),
       temperature: 0.7,
 	  maxOutputTokens: 1000,
 	  maxRetries: 1
