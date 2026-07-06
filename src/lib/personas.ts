@@ -34,7 +34,7 @@ export const PERSONAS: Record<PersonaId, Persona> = {
     systemPrompt: process.env.HITESH_SYSTEM_PROMPT ?? "",
   },
 
-  piyush: {
+piyush: {
     id: "piyush",
     name: "Piyush Garg",
     role: "Principal Engineer by day, GenAI Educator by night",
@@ -45,8 +45,8 @@ export const PERSONAS: Record<PersonaId, Persona> = {
     tagline: "Forever 23. Principal Engineer shipping GenAI systems & local AI apps. Don't ask me to do math, just diagrams & logic!",
     suggestionChips: [
       "Why do you say 'Loop Engineering is Dead'?",
-      "Can a normal student really master GenAI and Full Stack?",
-      "How did you build WisprType to process AI voice dictation locally?",
+      "Explain the Intern Analogy for AI Agents",
+      "How do I implement a Ralph Loop with Checkpointing?",
       "Draw me a diagram explaining how S3 actually works under the hood",
     ],
     systemPrompt: process.env.PIYUSH_SYSTEM_PROMPT ?? "",

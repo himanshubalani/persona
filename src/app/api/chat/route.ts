@@ -40,8 +40,7 @@ export async function POST(req: Request) {
       model: openai('gpt-5.4-nano'),
       system: selectedPersona.systemPrompt,
       messages: await convertToModelMessages(messages),
-      temperature: 0.7,
-	  maxOutputTokens: 1000,
+	  maxOutputTokens: 300,
 	  maxRetries: 1
       // tools: tools, // Uncomment this line when ready to activate tool calling
     });
