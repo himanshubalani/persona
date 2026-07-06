@@ -24,12 +24,19 @@ export function PersonaSidebar({ activePersona, onSelectPersona, onClose }: Side
       {/* Top Branding / Logo Header */}
       <div className="flex items-center justify-between px-5">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 font-bold text-white shadow-md">
-            P.AI
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl overflow-hidden shadow-md bg-transparent">
+            <Image
+              src="/Logo.png"
+              alt="Persona AI"
+              width={40}
+              height={40}
+              className="h-full w-full object-cover"
+              unoptimized
+            />
           </div>
           <div className="flex flex-col min-w-0">
             <span className="text-sm font-bold text-white tracking-wide truncate text-balance">
-              Persona AI
+              Clerio Personas
             </span>
             <span className="text-[11px] text-slate-400 truncate text-pretty">
               Select a mentor
@@ -116,7 +123,7 @@ export function PersonaSidebar({ activePersona, onSelectPersona, onClose }: Side
 
       {/* Bottom Footer with Tabular Numbers */}
       <div className="flex items-center justify-between px-5 text-xs text-slate-500 border-t border-slate-800/80 pt-4 mt-2 font-mono">
-        <span className="tabular-nums">v1.0 • Persona AI</span>
+        <span className="tabular-nums">v1.0 • Clerio Personas</span>
         <span
           className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shrink-0"
           title="System Online"
