@@ -12,10 +12,6 @@ export interface MessageBubbleProps {
   persona: Persona;
 }
 
-/**
- * Lightweight Markdown Renderer adapted from your project reference.
- * Supports: **bold**, *italic*, `code`, [links](url), lists (- or *), and newlines.
- */
 export function renderMarkdown(text: string, themeColor: string): React.ReactNode[] {
   const lines = text.split("\n");
   const elements: React.ReactNode[] = [];
@@ -25,7 +21,7 @@ export function renderMarkdown(text: string, themeColor: string): React.ReactNod
   function flushList() {
     if (listItems.length > 0) {
       elements.push(
-        <ul key={`ul-${keyCounter++}`} className="list-disc pl-4 my-1.5 space-y-1">
+        <ul key={`ul-${keyCounter++}`} className="list-disc pl-4 my-1.5 space-y-1 text-pretty">
           {listItems}
         </ul>
       );
@@ -36,21 +32,21 @@ export function renderMarkdown(text: string, themeColor: string): React.ReactNod
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]!;
 
-    // Headings
+    // Headings with text-balance
     const headingMatch = /^(#{1,6})\s+(.*)$/.exec(line);
     if (headingMatch) {
       flushList();
 
       const level = headingMatch[1].length;
-      const text = headingMatch[2];
+      const headingText = headingMatch[2];
 
       const headingClasses = {
-        1: "text-2xl font-bold mt-4 mb-2",
-        2: "text-xl font-bold mt-3 mb-2",
-        3: "text-lg font-semibold mt-3 mb-1.5",
-        4: "text-base font-semibold mt-2 mb-1",
-        5: "text-sm font-semibold mt-2 mb-1",
-        6: "text-sm font-medium mt-2 mb-1 text-slate-600",
+        1: "text-xl sm:text-2xl font-bold mt-4 mb-2 text-balance",
+        2: "text-lg sm:text-xl font-bold mt-3 mb-2 text-balance",
+        3: "text-base sm:text-lg font-semibold mt-3 mb-1.5 text-balance",
+        4: "text-sm sm:text-base font-semibold mt-2 mb-1 text-balance",
+        5: "text-sm font-semibold mt-2 mb-1 text-balance",
+        6: "text-xs sm:text-sm font-medium mt-2 mb-1 text-slate-600 text-balance",
       };
 
       const Tag = `h${level}` as React.ElementType;
@@ -60,7 +56,7 @@ export function renderMarkdown(text: string, themeColor: string): React.ReactNod
           key={`heading-${keyCounter++}`}
           className={headingClasses[level as keyof typeof headingClasses]}
         >
-          {renderInline(text!, themeColor)}
+          {renderInline(headingText!, themeColor)}
         </Tag>
       );
 
@@ -71,7 +67,7 @@ export function renderMarkdown(text: string, themeColor: string): React.ReactNod
 
     if (listMatch) {
       listItems.push(
-        <li key={`li-${keyCounter++}`}>{renderInline(listMatch[1]!, themeColor)}</li>
+        <li key={`li-${keyCounter++}`} className="text-pretty">{renderInline(listMatch[1]!, themeColor)}</li>
       );
     } else {
       flushList();
@@ -86,7 +82,7 @@ export function renderMarkdown(text: string, themeColor: string): React.ReactNod
           }
         }
         elements.push(
-          <span key={`line-${keyCounter++}`}>{renderInline(line, themeColor)}</span>
+          <span key={`line-${keyCounter++}`} className="text-pretty">{renderInline(line, themeColor)}</span>
         );
       }
     }
@@ -117,7 +113,7 @@ function renderInline(text: string, themeColor: string): React.ReactNode[] {
       tokens.push(
         <code
           key={`c-${keyCounter++}`}
-          className="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded text-[13px] font-mono border border-slate-200"
+          className="bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded-[6px] text-[13px] font-mono border border-slate-200/80"
         >
           {match[6]}
         </code>
@@ -129,7 +125,7 @@ function renderInline(text: string, themeColor: string): React.ReactNode[] {
           href={match[9]}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline font-medium hover:opacity-80"
+          className="underline font-medium hover:opacity-80 transition-opacity"
           style={{ color: themeColor }}
         >
           {match[8]}
@@ -142,7 +138,7 @@ function renderInline(text: string, themeColor: string): React.ReactNode[] {
           href={match[10]}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline font-medium hover:opacity-80 break-all"
+          className="underline font-medium hover:opacity-80 break-all transition-opacity"
           style={{ color: themeColor }}
         >
           {match[10]}
@@ -172,7 +168,7 @@ export function MessageBubble({ role, content, isStreaming, persona }: MessageBu
     return (
       <div className="flex justify-end animate-in fade-in slide-in-from-bottom-2 duration-200">
         <div
-          className="rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%] text-[14px] text-white shadow-sm break-words"
+          className="rounded-2xl rounded-tr-sm px-3.5 py-2.5 sm:px-4 sm:py-3 max-w-[90%] sm:max-w-[80%] text-[14px] text-white shadow-sm break-words text-pretty"
           style={{ backgroundColor: persona.themeColor }}
         >
           {content}
@@ -181,23 +177,23 @@ export function MessageBubble({ role, content, isStreaming, persona }: MessageBu
     );
   }
 
-  // Assistant message with Persona avatar and colored accent
+  // Assistant message with Persona avatar, subtle image outline, and colored accent
   return (
-    <div className="flex items-start gap-3 justify-start animate-in fade-in slide-in-from-bottom-2 duration-200">
+    <div className="flex items-start gap-2.5 sm:gap-3 justify-start animate-in fade-in slide-in-from-bottom-2 duration-200">
       {isStreaming && <style>{cursorBlinkStyle}</style>}
       
-      {/* Persona Avatar */}
-      <div className="flex-shrink-0 h-8 w-8 rounded-full overflow-hidden border border-slate-200 mt-1 shadow-sm">
+      {/* Persona Avatar with Inset Outline */}
+      <div className="flex-shrink-0 h-8 w-8 rounded-full overflow-hidden border border-slate-200 mt-1 shadow-sm outline outline-1 -outline-offset-1 outline-black/10 shrink-0">
         <Image src={persona.avatarUrl} alt={persona.name} width={32} height={32} className="h-full w-full object-cover" unoptimized />
       </div>
 
-      <div className="flex flex-col gap-1 max-w-[80%]">
+      <div className="flex flex-col gap-1 max-w-[90%] sm:max-w-[80%] min-w-0">
         <span className="text-xs font-semibold px-1 text-slate-500 flex items-center gap-1.5">
           {persona.name}
-          <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: persona.themeColor }} />
+          <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ backgroundColor: persona.themeColor }} />
         </span>
 
-        <div className={`bg-white border rounded-2xl rounded-tl-sm px-4 py-3 text-[14px] text-slate-800 shadow-sm break-words leading-relaxed ${persona.borderTint}`}>
+        <div className={`bg-white border rounded-2xl rounded-tl-sm px-3.5 py-2.5 sm:px-4 sm:py-3 text-[14px] text-slate-800 shadow-sm break-words leading-relaxed ${persona.borderTint}`}>
           {renderMarkdown(content, persona.themeColor)}
           {isStreaming && (
             <span

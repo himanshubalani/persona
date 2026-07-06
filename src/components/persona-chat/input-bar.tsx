@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
-import { PaperPlaneRight, StopCircle } from "@phosphor-icons/react/dist/ssr";
+import { PaperPlaneRightIcon, StopCircleIcon } from "@phosphor-icons/react/dist/ssr";
 
 export function clampTextareaHeight(scrollHeight: number): number {
   return Math.max(48, Math.min(180, scrollHeight));
@@ -19,7 +19,6 @@ export interface InputBarProps {
   disabled?: boolean;
   themeColor: string;
   placeholderName: string;
-  // NEW: Accept prefill prop
   prefill?: { text: string; id: number } | null;
 }
 
@@ -36,12 +35,11 @@ export function InputBar({
   const [height, setHeight] = useState(48);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // NEW: When a suggestion chip is clicked, populate the textarea and focus!
+  // Auto-populate and focus when a suggestion chip is clicked
   useEffect(() => {
     if (!prefill) return;
     setValue(prefill.text);
 
-    // Use requestAnimationFrame so focus and cursor placement happen after React renders the new text
     requestAnimationFrame(() => {
       const ta = textareaRef.current;
       if (!ta) return;
@@ -81,23 +79,25 @@ export function InputBar({
   const isSubmitDisabled = !canSubmit(value) || disabled;
 
   return (
-    <div className="border-t border-slate-200 bg-white px-6 py-4">
+    <div className="border-t border-slate-200 bg-white px-3 py-3 sm:px-6 sm:py-4">
+      {/* Concentric radius calculation: outer rounded-2xl (16px) with p-1.5 (6px) requires inner button rounded-[10px] (10px) */}
       <div
-        className="flex items-end gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2 transition-colors focus-within:border-slate-300 focus-within:bg-white focus-within:shadow-sm"
+        className="flex items-end gap-2 rounded-2xl border border-slate-200/80 bg-slate-50 p-1.5 sm:px-3 sm:py-2 transition-[border-color,background-color,box-shadow] duration-150 ease-out focus-within:border-slate-300 focus-within:bg-white focus-within:shadow-[var(--shadow-border)]"
         style={{
           outlineColor: themeColor,
         }}
       >
+        {/* text-[16px] on small viewports prevents iOS auto-zoom */}
         <textarea
           ref={textareaRef}
           value={value}
-		  maxLength={1500}
+          maxLength={1500}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
           disabled={disabled || isStreaming}
           placeholder={`Message ${placeholderName}...`}
           aria-label="Message input"
-          className="flex-1 resize-none overflow-hidden border-0 bg-transparent text-[14px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-0 my-auto py-1"
+          className="flex-1 resize-none overflow-hidden border-0 bg-transparent px-2.5 py-1.5 text-[16px] sm:text-[14px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-0 my-auto text-pretty"
           style={{
             minHeight: "32px",
             maxHeight: "180px",
@@ -110,10 +110,10 @@ export function InputBar({
             type="button"
             onClick={onStop}
             aria-label="Stop generation"
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-white transition-all hover:opacity-90 focus:outline-none shrink-0 shadow-sm cursor-pointer"
+            className="flex h-10 w-10 items-center justify-center rounded-[10px] text-white transition-[scale,opacity,background-color,box-shadow] duration-150 ease-out hover:opacity-95 active:scale-[0.96] focus:outline-none shrink-0 shadow-sm cursor-pointer"
             style={{ backgroundColor: themeColor }}
           >
-            <StopCircle className="h-5 w-5" weight="fill" />
+            <StopCircleIcon className="h-5 w-5 shrink-0" weight="fill" />
           </button>
         ) : (
           <button
@@ -121,10 +121,10 @@ export function InputBar({
             onClick={handleSubmit}
             disabled={isSubmitDisabled}
             aria-label="Send message"
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:opacity-90 focus:outline-none shrink-0 shadow-sm cursor-pointer"
+            className="flex h-10 w-10 items-center justify-center rounded-[10px] text-white disabled:opacity-30 disabled:cursor-not-allowed transition-[scale,opacity,background-color,box-shadow] duration-150 ease-out hover:opacity-95 active:scale-[0.96] focus:outline-none shrink-0 shadow-sm cursor-pointer"
             style={{ backgroundColor: themeColor }}
           >
-            <PaperPlaneRight className="h-5 w-5" weight="fill" />
+            <PaperPlaneRightIcon className="h-5 w-5 shrink-0" weight="fill" />
           </button>
         )}
       </div>

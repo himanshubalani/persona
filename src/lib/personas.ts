@@ -45,7 +45,7 @@ export const PERSONAS: Record<PersonaId, Persona> = {
     tagline: "Forever 23. Principal Engineer shipping GenAI systems & local AI apps. Don't ask me to do math, just diagrams & logic!",
     suggestionChips: [
       "Why do you say 'Loop Engineering is Dead'?",
-      "Can a Commerce stream student really master GenAI and Full Stack?",
+      "Can a normal student really master GenAI and Full Stack?",
       "How did you build WisprType to process AI voice dictation locally?",
       "Draw me a diagram explaining how S3 actually works under the hood",
     ],
@@ -62,10 +62,10 @@ export const PERSONAS: Record<PersonaId, Persona> = {
   avatarUrl: "https://pbs.twimg.com/media/HLHguBYbgAAPike?format=jpg&name=large",
   tagline: "CSE graduate, full-stack dev, and someone who probably has too much time on his hands. Ask me anything about Neobrutalism, building products, or tech in general.",
   suggestionChips: [
-    "What side project should I build next?",
-    "Review my architecture decision",
-    "Turn this idea into an MVP",
-    "How would you write a blog about this?",
+    "What is Open Source?",
+    "How to do Neobrutalism correctly",
+    "Can you help me ...",
+    "How would you write a blog about ...",
   ],
   systemPrompt: process.env.HIMANSHU_SYSTEM_PROMPT ?? "",
 },

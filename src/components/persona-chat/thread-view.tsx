@@ -59,44 +59,50 @@ export function ThreadView({
     }
   }, [messages.length, messages, isStreaming, userHasScrolledUp]);
 
-  // Empty State with Persona Branding & Chips
+  // Empty State with Staggered Animations & overscroll-contain
   if (messages.length === 0) {
     return (
       <div
         role="log"
         aria-live="polite"
-        className="flex flex-1 flex-col items-center justify-center overflow-y-auto px-6 py-6 text-center select-none"
+        className="flex flex-1 flex-col items-center justify-center overflow-y-auto overscroll-contain px-4 py-6 text-center select-none"
       >
+        {/* Avatar with Inset Outline */}
         <div
-          className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl border-2 border-transparent opacity-100 transition-all duration-300 hover:scale-105 hover:opacity-100 shadow-lg mb-4"
+          className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl border-2 border-transparent transition-[transform,opacity,box-shadow] duration-300 hover:scale-105 shadow-lg mb-4 outline outline-1 -outline-offset-1 outline-black/10 shrink-0"
           style={{
             boxShadow: `0 0 16px ${persona.themeColor}40`,
           }}
         >
           <Image
-			src={persona.avatarUrl}
-			alt={persona.name}
-			width={64}
-			height={64}
-			className="h-full w-full object-cover"
-			unoptimized
-		  />
+            src={persona.avatarUrl}
+            alt={persona.name}
+            width={64}
+            height={64}
+            className="h-full w-full object-cover"
+            unoptimized
+          />
         </div>
-        <h2 className="text-lg font-bold text-slate-800 mb-1">
+
+        <h2 className="text-lg sm:text-xl font-bold text-slate-800 mb-1 text-balance">
           Chat with {persona.name}
         </h2>
-        <p className="mb-6 text-sm text-slate-500 max-w-md">
+        <p className="mb-6 text-xs sm:text-sm text-slate-500 max-w-md text-pretty leading-relaxed px-2">
           {persona.tagline}
         </p>
 
-        <div className="flex flex-wrap justify-center gap-2 max-w-lg">
-          {persona.suggestionChips.map((chip) => (
+        {/* Staggered Suggestion Chips with Scale on Press */}
+        <div className="flex flex-wrap justify-center gap-2 max-w-lg px-2">
+          {persona.suggestionChips.map((chip, index) => (
             <button
               key={chip}
               type="button"
               onClick={() => onSuggestionClick?.(chip)}
-              className="cursor-pointer rounded-full border border-slate-200 bg-white px-3.5 py-2 text-xs font-medium text-slate-700 transition-all hover:border-slate-300 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1"
-              style={{ outlineColor: persona.themeColor }}
+              style={{
+                outlineColor: persona.themeColor,
+                animationDelay: `${index * 80}ms`,
+              }}
+              className="animate-fade-in-up cursor-pointer rounded-xl border border-slate-200/80 bg-white px-3.5 py-2 text-xs font-medium text-slate-700 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[scale,border-color,box-shadow,background-color,color] duration-150 ease-out hover:border-slate-300 hover:shadow-sm active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-offset-1 text-left text-pretty"
             >
               {chip}
             </button>
@@ -107,12 +113,13 @@ export function ThreadView({
   }
 
   return (
+    /* overscroll-contain stops scroll chaining to prevent mobile URL bar bounce */
     <div
       ref={scrollContainerRef}
       role="log"
       aria-live="polite"
       onScroll={handleScroll}
-      className="flex flex-1 flex-col overflow-y-auto px-6 py-4 space-y-4"
+      className="flex flex-1 flex-col overflow-y-auto overscroll-contain px-3 py-3.5 sm:px-6 sm:py-4 space-y-4"
     >
       {messages.map((message, index) => (
         <MessageBubble
