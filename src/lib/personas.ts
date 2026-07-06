@@ -42,7 +42,7 @@ export const PERSONAS: Record<PersonaId, Persona> = {
     bgTint: "bg-pink-50 text-pink-950 border-pink-200",
     borderTint: "border-[#EC4899]",
     avatarUrl: "https://pbs.twimg.com/profile_images/1991479533946695684/uL2HzvWv_400x400.jpg",
-    tagline: "Forever 23. Princioal Engineer shipping GenAI systems & local AI apps. Don't ask me to do math, just diagrams & logic!",
+    tagline: "Forever 23. Principal Engineer shipping GenAI systems & local AI apps. Don't ask me to do math, just diagrams & logic!",
     suggestionChips: [
       "Why do you say 'Loop Engineering is Dead'?",
       "Can a Commerce stream student really master GenAI and Full Stack?",
@@ -60,7 +60,7 @@ export const PERSONAS: Record<PersonaId, Persona> = {
   bgTint: "bg-blue-50 text-blue-950 border-blue-200",
   borderTint: "border-[#2563EB]",
   avatarUrl: "https://pbs.twimg.com/media/HLHguBYbgAAPike?format=jpg&name=large",
-  tagline: "CSE graduate, full-stack dev, and someone who probably has too many side projects open at once. Ask me anything about building products, TypeScript, AI integration, or just tech in general. ☕",
+  tagline: "CSE graduate, full-stack dev, and someone who probably has too much time on his hands. Ask me anything about Neobrutalism, building products, or tech in general.",
   suggestionChips: [
     "What side project should I build next?",
     "Review my architecture decision",
