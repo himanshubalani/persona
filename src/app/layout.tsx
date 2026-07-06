@@ -14,13 +14,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://persona.askclerio.dev"), 
   title: "Clerio Personas",
   description: "Clerio Personas is a collection of AI-powered mentors that can help you learn, build, and grow.",
   openGraph: {
-    title: 'Clerio Personas',
-    description: 'Clerio Personas is a collection of AI-powered mentors that can help you learn, build, and grow.',
-    url: 'https://persona.askclerio.dev',
-    siteName: 'Clerio Personas',
+    title: "Clerio Personas",
+    description: "Clerio Personas is a collection of AI-powered mentors that can help you learn, build, and grow.",
+    url: "https://persona.askclerio.dev",
+    siteName: "Clerio Personas",
+    images: [
+      {
+        url: "/og-image.png", 
+        width: 1920,
+        height: 1080,
+        alt: "Clerio Personas Preview",
+      },
+    ],
   },
 };
 
