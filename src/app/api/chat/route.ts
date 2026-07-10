@@ -40,7 +40,7 @@ export async function POST(req: Request) {
       model: openai('gpt-5.4-nano'),
       system: selectedPersona.systemPrompt,
       messages: await convertToModelMessages(messages),
-	  maxOutputTokens: 300,
+	  maxOutputTokens: process.env.MAX_OUTPUT_TOKENS ? parseInt(process.env.MAX_OUTPUT_TOKENS) : 2000,
 	  maxRetries: 1
       // tools: tools, // Uncomment this line when ready to activate tool calling
     });
